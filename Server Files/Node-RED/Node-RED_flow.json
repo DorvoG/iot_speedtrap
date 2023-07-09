@@ -1,0 +1,236 @@
+[
+    {
+        "id": "25049685a759b08e",
+        "type": "tab",
+        "label": "Export Flow Github",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4adcf19cb73ee13f",
+        "type": "mqtt in",
+        "z": "25049685a759b08e",
+        "name": "PLCHLDR MQTT",
+        "topic": "#",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "e47530b0d5820d87",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "9a181463dabfab95",
+                "50aafa8d2cd78044",
+                "4ad503953c926d9f"
+            ]
+        ]
+    },
+    {
+        "id": "4ad503953c926d9f",
+        "type": "function",
+        "z": "25049685a759b08e",
+        "name": "Inject Data",
+        "func": "try {\n    // Extract the data\n    var app_id = msg.topic.split('/')[1]; // Extract application id from topic\n    var dev_id = msg.payload.end_device_ids.device_id;\n    var hardware_serial = msg.payload.end_device_ids.dev_eui;\n    var timestamp = msg.payload.received_at; // Use the received_at field as timestamp\n\n    // Decode the frm_payload\n    var payloadBuffer = Buffer.from(msg.payload.uplink_message.frm_payload, 'base64');\n\n    // Extract temperature and humidity from payload\n    var top_speed = payloadBuffer.readUInt8(1); // Ignore the first byte, read the second byte as temperature\n    var avg_speed = payloadBuffer.readUInt8(3); // Read the third and fourth bytes as humidity\n\n    // Create the SQL query\n    msg.params = [timestamp, app_id, dev_id, hardware_serial, top_speed, avg_speed];\n} catch (err) {\n    // Output the error to the Node-RED debug window\n    node.error(err);\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 160,
+        "wires": [
+            [
+                "c32eed5d18f2a528"
+            ]
+        ]
+    },
+    {
+        "id": "c32eed5d18f2a528",
+        "type": "postgresql",
+        "z": "25049685a759b08e",
+        "name": "TimescaleDB",
+        "query": "INSERT INTO simulate_speed (time, app_id, dev_id, hardware_serial, top_speed, avg_speed) \n  VALUES \n    ($1, $2, $3, $4, $5, $6);\n",
+        "postgreSQLConfig": "ef0d450984209185",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 810,
+        "y": 160,
+        "wires": [
+            [
+                "a71f4b4cf8bb8a85"
+            ]
+        ]
+    },
+    {
+        "id": "a71f4b4cf8bb8a85",
+        "type": "debug",
+        "z": "25049685a759b08e",
+        "name": "Database Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "50aafa8d2cd78044",
+        "type": "debug",
+        "z": "25049685a759b08e",
+        "name": "CompMessage",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "9a181463dabfab95",
+        "type": "debug",
+        "z": "25049685a759b08e",
+        "name": "MSgPayload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "433e7ede34bce38f",
+        "type": "catch",
+        "z": "25049685a759b08e",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 280,
+        "y": 100,
+        "wires": [
+            [
+                "53cc3e4b69a3bd82"
+            ]
+        ]
+    },
+    {
+        "id": "53cc3e4b69a3bd82",
+        "type": "debug",
+        "z": "25049685a759b08e",
+        "name": "Error Messages",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "7d7bb6abb9068154",
+        "type": "inject",
+        "z": "25049685a759b08e",
+        "name": "Test Inject",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "v3/placeholder@ttn/devices/placeholder/up",
+        "payload": " {\"end_device_ids\":{\"device_id\":\"placeholder\",\"application_ids\":{\"application_id\":\"placeholder\"},\"dev_eui\":\"0123456789ABCDEF\",\"join_eui\":\"0000000000001234\",\"dev_addr\":\"123BC123BC\"},\"correlation_ids\":[\"as:up:placeholderPLACEHOLDER\",\"gs:conn:placeholderPLACEHOLDER\",\"gs:up:host:placeholderPLACEHOLDER\",\"gs:uplink:placeholderPLACEHOLDER\",\"ns:uplink:placeholderPLACEHOLDER\",\"rpc:/ttn.lorawan.v3.GsNs/HandleUplink:placeholderPLACEHOLDER\",\"rpc:/ttn.lorawan.v3.NsAs/HandleUplink:placeholderPLACEHOLDER\"],\"received_at\":\"2022-03-09T19:02:06.1234567890Z\",\"uplink_message\":{\"session_key_id\":\"placeholderPLACEHOLDER==\",\"f_port\":10,\"f_cnt\":2955,\"frm_payload\":\"placeholderPLACEHOLDER==\",\"rx_metadata\":[{\"gateway_ids\":{\"gateway_id\":\"eui-placeholderPLACEHOLDER\",\"eui\":\"placeholderPLACEHOLDER\"},\"time\":\"2022-03-09T19:02:06.0123456789Z\",\"timestamp\":123456789Z,\"rssi\":-92,\"channel_rssi\":-92,\"snr\":13.5,\"location\":{\"latitude\":55.0123456789,\"longitude\":20.0123456789,\"source\":\"SOURCE_REGISTRY\"},\"uplink_token\":\"placeholderPLACEHOLDER//placeholderPLACEHOLDER/placeholderPLACEHOLDER==\",\"received_at\":\"2022-03-09T19:02:06.0123456789\"}],\"settings\":{\"data_rate\":{\"lora\":{\"bandwidth\":125000,\"spreading_factor\":7,\"coding_rate\":\"4/5\"}},\"frequency\":\"867300000\",\"timestamp\":0123456789,\"time\":\"2022-03-09T19:02:06.0123456789\"},\"received_at\":\"2022-03-09T19:02:06.0123456789Z\",\"confirmed\":true,\"consumed_airtime\":\"0.051456s\",\"network_ids\":{\"net_id\":\"000013\",\"tenant_id\":\"ttn\",\"cluster_id\":\"eu1\",\"cluster_address\":\"eu1.cloud.thethings.network\"}}}",
+        "payloadType": "json",
+        "x": 300,
+        "y": 240,
+        "wires": [
+            [
+                "4ad503953c926d9f",
+                "9a181463dabfab95",
+                "50aafa8d2cd78044"
+            ]
+        ]
+    },
+    {
+        "id": "e47530b0d5820d87",
+        "type": "mqtt-broker",
+        "name": "placeholder",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "ef0d450984209185",
+        "type": "postgreSQLConfig",
+        "name": "Timescale",
+        "host": "timescaledb",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "postgres",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "Placeholder",
+        "userFieldType": "str",
+        "password": "Placeholder",
+        "passwordFieldType": "str"
+    }
+]

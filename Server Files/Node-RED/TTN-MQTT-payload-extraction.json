@@ -1,0 +1,23 @@
+try {
+    // Extract the data
+    var app_id = msg.topic.split('/')[1]; // Extract application id from topic
+    var dev_id = msg.payload.end_device_ids.device_id;
+    var hardware_serial = msg.payload.end_device_ids.dev_eui;
+    var timestamp = msg.payload.received_at; // Use the received_at field as timestamp
+
+    // Decode the frm_payload
+    var payloadBuffer = Buffer.from(msg.payload.uplink_message.frm_payload, 'base64');
+
+    // Extract temperature and humidity from payload
+    var top_speed = payloadBuffer.readUInt8(1); // Ignore the first byte, read the second byte as temperature
+    var avg_speed = payloadBuffer.readUInt8(3); // Read the third and fourth bytes as humidity
+
+    // Create the SQL query
+    msg.params = [timestamp, app_id, dev_id, hardware_serial, top_speed, avg_speed];
+    } 
+catch (err) {
+    // Output the error to the Node-RED debug window
+    node.error(err);
+}
+
+return msg;
