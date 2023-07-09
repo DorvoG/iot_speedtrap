@@ -56,4 +56,4 @@ With the data gathered one can start drawing conclusions. When are people speedi
 
 These are just some of the answers we can get from analyzing the data, which in turn can help us further understand how to "calm the traffic."
 
-![Screenshot](Images/screenshot.png)
+![Installation of Speed Trap](Images/Installation.png)
