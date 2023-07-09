@@ -154,3 +154,48 @@ Data is saved in the database every time an event is triggered at the speed trap
 
 Final thoughts
 ==============
+
+This project went well and I am happy with the results. I have learned so much in so many different areas of IoT that I don't know how exactly I managed to cram everything in such a short period of time.
+
+But the artist who says that they are satisfied with their work is a liar. There is so much more I would like to have tried, tinkered, coded, hacked, built and upgraded.
+
+To name a few things:
+
+- Being able to change and push the Pico config remotely
+
+- Implementing machine learning
+
+- Get the Doppler Radar to work
+
+- Try out the ultrasonic sensor
+
+- Implement a hashing algorithm for the transmitted data
+
+- Implement more efficient computation of the logged speed data (on the pico)
+
+- Implement a buffered send function, if the message doesn't transmit properly
+
+- A large numerical display showing the measured speed to drivers
+
+- "PID tuning" on the speed data so that the cat tail moves more smoothly
+
+- Implement Sleep functionality to save on power
+
+- Implement a relay to be able to turn off power to unused components.
+
+- Make a video (I even wrote a script for it, but time makes a fool of us all)
+
+- Implement a charging circuit for the batteries
+
+- Solar power
+
+- Recording the direction of the cars that pass
+
+- Etc.
+
+Being ever the temporal optimist, on deadline day I designed a miniaturized version of the speed trap that retains all the basic functionality and includes battery power. The cat got a little brother so to say.
+
+As I previously stated, I am very happy with how the project progressed. If you're interested and would like to know more, don't hesitate to contact me.
+
+Pictures!
+=========
