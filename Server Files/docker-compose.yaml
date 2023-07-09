@@ -1,0 +1,102 @@
+version: '3.9'
+
+# Replace all Placeholder lines with your data
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+
+    restart: unless-stopped
+
+    networks:
+      - frontend
+      - backend
+
+    volumes:
+      - ./mosquitto/config:/config 
+      - ./mosquitto/log:/log 
+      - ./mosquitto/data:/data 
+
+    ports:
+      - 1883:1883
+      - 8883:8883      
+      - 9001:9001
+
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+
+    restart: unless-stopped
+
+    environment:
+      - TZ=Europe/Amsterdam
+
+    ports:
+      - 1880:1880
+
+    networks:
+      - backend
+
+    volumes:
+      - ./node-red/data:/data 
+
+
+  timescaledb:
+    image: timescale/timescaledb:latest-pg15
+    container_name: timescaledb
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_PASSWORD: Placeholder
+      POSTGRES_USER: Placeholder
+      POSTGRES_DB: Placeholder
+      TIMESCALEDB_TELEMETRY: basic
+
+    networks:
+      - backend
+
+    ports:
+      - 5432:5432
+
+    volumes:
+      - ./timescaledb/data:/var/lib/postgresql/data
+
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+
+#    security_opt:
+#      - no-new-privileges:true
+
+    restart: unless-stopped
+
+    networks:
+      - backend
+
+    ports:
+      - 3000:3000
+
+    user: '0' 
+
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+
+#    environment:
+#      GF_INSTALL_PLUGINS: "N/A"
+
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+#volumes:
+#  ./mosquitto:
+#  ./node-red:
+
+
+

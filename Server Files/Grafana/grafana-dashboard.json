@@ -79,7 +79,7 @@
             "editorMode": "code",
             "format": "table",
             "rawQuery": true,
-            "rawSql": "SELECT \r\n  CASE \r\n    WHEN \"top_speed\" BETWEEN 0 AND 20 THEN '0-20'\r\n    WHEN \"top_speed\" BETWEEN 21 AND 30 THEN '20-30'\r\n    WHEN \"top_speed\" BETWEEN 31 AND 50 THEN '30-50'\r\n    ELSE '51+'\r\n  END AS \"range\",\r\n  COUNT(*) \r\nFROM simulate_speed \r\nWHERE DATE(time) = DATE(NOW()) \r\nGROUP BY \"range\";",
+            "rawSql": "SELECT \r\n  CASE \r\n    WHEN \"top_speed\" BETWEEN 0 AND 20 THEN '0-20'\r\n    WHEN \"top_speed\" BETWEEN 21 AND 30 THEN '20-30'\r\n    WHEN \"top_speed\" BETWEEN 31 AND 50 THEN '30-50'\r\n    ELSE '51+'\r\n  END AS \"range\",\r\n  COUNT(*) \r\nFROM measure_speed \r\nWHERE DATE(time) = DATE(NOW()) \r\nGROUP BY \"range\";",
             "refId": "A",
             "sql": {
               "columns": [
@@ -103,7 +103,7 @@
               ],
               "limit": 50
             },
-            "table": "simulate_speed"
+            "table": "measure_speed"
           }
         ],
         "title": "Driver Speeds Today",
@@ -167,7 +167,7 @@
             "editorMode": "code",
             "format": "table",
             "rawQuery": true,
-            "rawSql": "SELECT \r\n  CASE \r\n    WHEN \"top_speed\" BETWEEN 0 AND 20 THEN '0-20'\r\n    WHEN \"top_speed\" BETWEEN 21 AND 30 THEN '20-30'\r\n    WHEN \"top_speed\" BETWEEN 31 AND 50 THEN '30-50'\r\n    ELSE '51+'\r\n  END AS \"range\",\r\n  COUNT(*) \r\nFROM simulate_speed \r\nWHERE DATE(time) = DATE(NOW()) AND EXTRACT(HOUR FROM time) >= 5 AND EXTRACT(HOUR FROM  time) < 9\r\nGROUP BY \"range\";",
+            "rawSql": "SELECT \r\n  CASE \r\n    WHEN \"top_speed\" BETWEEN 0 AND 20 THEN '0-20'\r\n    WHEN \"top_speed\" BETWEEN 21 AND 30 THEN '20-30'\r\n    WHEN \"top_speed\" BETWEEN 31 AND 50 THEN '30-50'\r\n    ELSE '51+'\r\n  END AS \"range\",\r\n  COUNT(*) \r\nFROM measure_speed \r\nWHERE DATE(time) = DATE(NOW()) AND EXTRACT(HOUR FROM time) >= 5 AND EXTRACT(HOUR FROM  time) < 9\r\nGROUP BY \"range\";",
             "refId": "A",
             "sql": {
               "columns": [
@@ -191,7 +191,7 @@
               ],
               "limit": 50
             },
-            "table": "simulate_speed"
+            "table": "measure_speed"
           }
         ],
         "title": "Driver Speeds This Morning",
@@ -202,7 +202,7 @@
           "type": "postgres",
           "uid": "placeholderUsername"
         },
-        "description": "Simulated speed values to preview dashboard for actual values.",
+        "description": "Measured and logged speed events.",
         "fieldConfig": {
           "defaults": {
             "color": {
@@ -329,7 +329,7 @@
             "editorMode": "code",
             "format": "table",
             "rawQuery": true,
-            "rawSql": "SELECT * FROM simulate_speed \r\nORDER BY time DESC\r\nLIMIT 5000;",
+            "rawSql": "SELECT * FROM measure_speed \r\nORDER BY time DESC\r\nLIMIT 5000;",
             "refId": "A",
             "sql": {
               "columns": [
@@ -353,7 +353,7 @@
               ],
               "limit": 50
             },
-            "table": "simulate_speed"
+            "table": "measure_speed"
           }
         ],
         "title": "Simulated Speed",
@@ -365,7 +365,7 @@
           "type": "postgres",
           "uid": "placeholderUsername"
         },
-        "description": "Simulated speed values to preview dashboard for actual values.",
+        "description": "Measured and logged speed events.",
         "fieldConfig": {
           "defaults": {
             "color": {
@@ -492,7 +492,7 @@
             "editorMode": "code",
             "format": "table",
             "rawQuery": true,
-            "rawSql": "SELECT * FROM simulate_speed \r\nORDER BY time DESC\r\nLIMIT 5000;",
+            "rawSql": "SELECT * FROM measure_speed \r\nORDER BY time DESC\r\nLIMIT 5000;",
             "refId": "A",
             "sql": {
               "columns": [
@@ -516,7 +516,7 @@
               ],
               "limit": 50
             },
-            "table": "simulate_speed"
+            "table": "measure_speed"
           }
         ],
         "title": "Simulated Speed",
@@ -581,7 +581,7 @@
             "editorMode": "code",
             "format": "table",
             "rawQuery": true,
-            "rawSql": "SELECT \r\n  CASE \r\n    WHEN \"top_speed\" BETWEEN 0 AND 20 THEN '0-20'\r\n    WHEN \"top_speed\" BETWEEN 21 AND 30 THEN '20-30'\r\n    WHEN \"top_speed\" BETWEEN 31 AND 50 THEN '30-50'\r\n    ELSE '51+'\r\n  END AS \"range\",\r\n  COUNT(*) \r\nFROM simulate_speed \r\nWHERE DATE(time) = DATE(NOW()) AND EXTRACT(HOUR FROM time) >= 5 AND EXTRACT(HOUR FROM time) < 9\r\nGROUP BY \"range\";",
+            "rawSql": "SELECT \r\n  CASE \r\n    WHEN \"top_speed\" BETWEEN 0 AND 20 THEN '0-20'\r\n    WHEN \"top_speed\" BETWEEN 21 AND 30 THEN '20-30'\r\n    WHEN \"top_speed\" BETWEEN 31 AND 50 THEN '30-50'\r\n    ELSE '51+'\r\n  END AS \"range\",\r\n  COUNT(*) \r\nFROM measure_speed \r\nWHERE DATE(time) = DATE(NOW()) AND EXTRACT(HOUR FROM time) >= 5 AND EXTRACT(HOUR FROM time) < 9\r\nGROUP BY \"range\";",
             "refId": "A",
             "sql": {
               "columns": [
@@ -605,7 +605,7 @@
               ],
               "limit": 50
             },
-            "table": "simulate_speed"
+            "table": "measure_speed"
           }
         ],
         "title": "Driver Speeds This Morning",
@@ -673,7 +673,7 @@
             "editorMode": "code",
             "format": "table",
             "rawQuery": true,
-            "rawSql": "SELECT \r\n  CASE \r\n    WHEN \"top_speed\" BETWEEN 0 AND 20 THEN '0-20'\r\n    WHEN \"top_speed\" BETWEEN 21 AND 30 THEN '20-30'\r\n    WHEN \"top_speed\" BETWEEN 31 AND 50 THEN '30-50'\r\n    ELSE '51+'\r\n  END AS \"range\",\r\n  COUNT(*) \r\nFROM simulate_speed \r\nWHERE DATE(time) = DATE(NOW()) \r\nGROUP BY \"range\";",
+            "rawSql": "SELECT \r\n  CASE \r\n    WHEN \"top_speed\" BETWEEN 0 AND 20 THEN '0-20'\r\n    WHEN \"top_speed\" BETWEEN 21 AND 30 THEN '20-30'\r\n    WHEN \"top_speed\" BETWEEN 31 AND 50 THEN '30-50'\r\n    ELSE '51+'\r\n  END AS \"range\",\r\n  COUNT(*) \r\nFROM measure_speed \r\nWHERE DATE(time) = DATE(NOW()) \r\nGROUP BY \"range\";",
             "refId": "A",
             "sql": {
               "columns": [
@@ -697,7 +697,7 @@
               ],
               "limit": 50
             },
-            "table": "simulate_speed"
+            "table": "measure_speed"
           }
         ],
         "title": "Driver Speeds Today",
@@ -761,7 +761,7 @@
             "editorMode": "code",
             "format": "table",
             "rawQuery": true,
-            "rawSql": "SELECT \r\n  CASE \r\n    WHEN \"top_speed\" BETWEEN 0 AND 20 THEN '0-20'\r\n    WHEN \"top_speed\" BETWEEN 21 AND 30 THEN '20-30'\r\n    WHEN \"top_speed\" BETWEEN 31 AND 50 THEN '30-50'\r\n    ELSE '51+'\r\n  END AS \"range\",\r\n  COUNT(*) \r\nFROM simulate_speed \r\nWHERE DATE(time) = DATE(NOW()) \r\nGROUP BY \"range\";",
+            "rawSql": "SELECT \r\n  CASE \r\n    WHEN \"top_speed\" BETWEEN 0 AND 20 THEN '0-20'\r\n    WHEN \"top_speed\" BETWEEN 21 AND 30 THEN '20-30'\r\n    WHEN \"top_speed\" BETWEEN 31 AND 50 THEN '30-50'\r\n    ELSE '51+'\r\n  END AS \"range\",\r\n  COUNT(*) \r\nFROM measure_speed \r\nWHERE DATE(time) = DATE(NOW()) \r\nGROUP BY \"range\";",
             "refId": "A",
             "sql": {
               "columns": [
@@ -785,7 +785,7 @@
               ],
               "limit": 50
             },
-            "table": "simulate_speed"
+            "table": "measure_speed"
           }
         ],
         "title": "Driver Speeds Today",
