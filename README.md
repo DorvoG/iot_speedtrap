@@ -55,3 +55,5 @@ This project serves as a way of implementing a digitized form of traffic calming
 With the data gathered one can start drawing conclusions. When are people speeding? In the morning while late for work? At night when they think no ones watching? What direction has the highest average speed? How many cars pass in a day? What percentage of those cars are speeding?
 
 These are just some of the answers we can get from analyzing the data, which in turn can help us further understand how to "calm the traffic."
+
+![Screenshot](Images/screenshot.png)

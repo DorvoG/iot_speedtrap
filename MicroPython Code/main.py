@@ -14,11 +14,11 @@ speed_test = measure.measure_speed()
 
 # Main loop of program
 while True:
+
+    # check state of infrared sensors
     pir1_state = pir1.value()
     pir2_state = pir2.value()
- #   start = input()
-  #  if (start == "banana"):
-  #      speed_test.measure_lidar(None)
+
     if (pir1_state):
         speed_list = speed_test.measure_lidar(None)
         
