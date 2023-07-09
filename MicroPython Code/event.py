@@ -1,4 +1,4 @@
-#placeholder
+#placeholder - This function isn't implemented yet
 '''
 class event:
     

@@ -1,27 +1,28 @@
 version: '3.9'
 
 # Replace all Placeholder lines with your data
+# Mosquitto is currently commented out. If you wish to run mosquitto just remove the octothorpes.
 
 services:
-  mosquitto:
-    image: eclipse-mosquitto:latest
-    container_name: mosquitto
-
-    restart: unless-stopped
-
-    networks:
-      - frontend
-      - backend
-
-    volumes:
-      - ./mosquitto/config:/config 
-      - ./mosquitto/log:/log 
-      - ./mosquitto/data:/data 
-
-    ports:
-      - 1883:1883
-      - 8883:8883      
-      - 9001:9001
+#  mosquitto:
+#    image: eclipse-mosquitto:latest
+#    container_name: mosquitto
+#
+#    restart: unless-stopped
+#
+#    networks:
+#      - frontend
+#      - backend
+#
+#    volumes:
+#      - ./mosquitto/config:/config 
+#      - ./mosquitto/log:/log 
+#      - ./mosquitto/data:/data 
+#
+#    ports:
+#      - 1883:1883
+#      - 8883:8883      
+#      - 9001:9001
 
   nodered:
     image: nodered/node-red:latest

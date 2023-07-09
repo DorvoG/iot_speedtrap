@@ -1,3 +1,4 @@
+# Code Source: https://www.upesy.com/blogs/tutorials/pi-pico-servo-motor-sg90-on-micropython
 from machine import Pin, PWM
 
 class Servo:

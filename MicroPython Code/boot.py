@@ -2,16 +2,13 @@
 
 import lidarlib
 import event
-
-
-from servolib import Servo
-
 import struct
 import binascii
 import time
 import utime
 from LoRaWAN import lora
 from machine import UART, Pin
+from servolib import Servo
 
 
 print("boot")

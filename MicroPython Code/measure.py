@@ -1,4 +1,3 @@
-#placeholder
 import lidarlib
 import conf
 import utime
@@ -18,6 +17,7 @@ class measure_speed:
             lidarlib.set_samp_rate(conf.lidar_refreshrate) # min: 1 - max: 30 
             print("\nStart measuring")
             
+            # implementing a timer to prevent the pico from getting stuck in the measureloop and running out of RAM
             end_time = utime.time() + 10
             
             speed_list = []
@@ -28,8 +28,7 @@ class measure_speed:
                     speed_list.append(data)
                     break
             
-            time1 = utime.ticks_us()
-            print(speed_list[0][0])
+#            print(speed_list[0][0]) # Implemented for debugging
             
             while True:
                 while True:
@@ -38,15 +37,15 @@ class measure_speed:
                         speed_list.append(data)
                         break
                     
-                time2 = utime.ticks_us()
                 speed = int(abs((speed_list[-1][0] - speed_list[-2][0]) /  (1 / conf.lidar_refreshrate))) # divide by update frequency
                 speed_kmh = speed  / 100 * 3.6 #divide by meters and then multiply for km/h
-                time1 = utime.ticks_us()
                 
+                # Prevent the servo from moving where it's not supposed to
                 if (speed_kmh > 60): 
                     speed_kmh = 60
                 sg90_servo.move(6 + 2 * speed_kmh)
                 
+                # If timer is reached without other breaks triggered then break out of the loop
                 if (utime.time() > end_time):
                     break
                 
@@ -54,7 +53,9 @@ class measure_speed:
         except KeyboardInterrupt:
             print("Program Stopped")
         
+        # return servo to hold position
         sg90_servo.move(6)
-        print("stop")
+        
+#        print("stop") # Debugging print
         return speed_list
 
