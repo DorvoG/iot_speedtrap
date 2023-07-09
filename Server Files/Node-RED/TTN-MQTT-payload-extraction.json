@@ -14,8 +14,7 @@ try {
 
     // Create the SQL query
     msg.params = [timestamp, app_id, dev_id, hardware_serial, top_speed, avg_speed];
-    } 
-catch (err) {
+} catch (err) {
     // Output the error to the Node-RED debug window
     node.error(err);
 }

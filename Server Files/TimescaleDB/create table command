@@ -1,0 +1,8 @@
+CREATE TABLE "public"."measure_speed" (
+    "time" TIMESTAMPTZ NOT NULL,
+    app_id TEXT NOT NULL,
+    dev_id TEXT NOT NULL,
+    hardware_serial TEXT NOT NULL,
+    top_speed FLOAT DOUBLE PRECISION,
+    avg_speed FLOAT DOUBLE PRECISION
+);
