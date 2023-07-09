@@ -199,7 +199,13 @@ As I previously stated, I am very happy with how the project progressed. If you'
 
 Pictures!
 =========
+An indication of things to come.
+The smaller speed trap
 ![The smaller speed trap](Images/lil_speed_1.png)
+It looks tiny
 ![It looks tiny](Images/lil_speed_2.png)
+But measures large
 ![But measures large](Images/lil_speed_3.png)
+And it can do everything its big brother can!
 ![And it can do everything its big brother can](Images/lil_speed_4.png)
+Well almost.
