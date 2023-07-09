@@ -97,7 +97,7 @@ To run the Pico in standalone mode, at the very least you need to have a main.py
 Electrical connections and calculations
 =======================================
 
-!["Electrical Schematics"]("Images/IoT_Speedtrap Schematics.png")
+![Electrical Schematics](Images/IoT_Speedtrap_Schematics.png)
 
 12V LiPo or Power Supply delivers power to the step down converter that converts the voltage down to 5.1V. The Pi Pico and all the modules run off of the 5V bus, and they communicate over 3.3V TTL. The current setup is a work in progress and further development is needed.
 
@@ -150,7 +150,7 @@ Presenting the data
 
 Data is saved in the database every time an event is triggered at the speed trap. It is presented to the user in Grafana. For more information regarding choice of database, visualization and triggers see the "Platform part" of the Readme.
 
-!["Grafana Dashboard"]("Images/Grafana Dashboard Example.png")
+![Grafana Dashboard](Images/Grafana_Dashboard_Example.png)
 
 Final thoughts
 ==============
