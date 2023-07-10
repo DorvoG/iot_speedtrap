@@ -134,7 +134,24 @@ Grafana was chosen as the data visualization tool. It's easy to use, lightweight
 The Code
 ========
 
-All of the relevant code in this project has been uploaded to GitHub and resides under their respective directories.
+All of the relevant code in this project has been annotated and uploaded to GitHub where it resides in the relevant directories.
+A brief overview of the different code files as follows:
+
+- boot.py: Initialization of LoRaWAN, Lidar and Servo. Runs once when the Pico boots.
+
+- conf.py: Global configuration variables for the project
+
+- event.py: Still in development. Controls the measuring event when triggered by sensor.
+
+- lidarlib.py: Library file for the lidar module
+
+- LoRaWAN.py: Library file for the LoRaWAN module
+
+- main.py: The main loop of the program. Is listening for the triggers to activate the measurement function.
+
+- measure.py: The function running the measurement with the lidar module.
+
+- servolib.py: Library file for controlling the servo motor.
 
 Connectivity
 ============
